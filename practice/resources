@@ -1,0 +1,172 @@
+Schema: https://en.wikipedia.org/wiki/Database_schema
+
+Types of Data
+Here's a slightly larger list of data types than in the video.
+
+Text Type Examples
+    TEXT
+    VARCHAR
+    Numeric Type Examples
+    INT
+    INTEGER
+    Date Type Examples
+    DATETIME
+    DATE
+    TIMESTAMP
+
+
+https://www.pgadmin.org/
+https://www.phpmyadmin.net/
+http://mysqlworkbench.org/
+
+
+SQL cheatsheet
+https://github.com/treehouse/cheatsheets/blob/master/sql_basics/cheatsheet.md
+
+
+///////
+SELECT * FROM books;  >>> Select everything from books table
+
+SELECT <column names> FROM <table name>;
+select email from patrons; >> Select email column from patrons table
+select first_name, email from patrons; >> select first_name and email from patrons table
+
+SELECT <column name> AS <alias> FROM <table name>; 
+SELECT title AS Title, first_published FROM books; >> select title as Title and published from books table
+SELECT title AS Title, first_published AS "First Published" FROM books;
+We can omit the As word, compiler will take the second arg as the alias
+
+/////////////////////
+SELECT <columns> FROM <table> WHERE <condition>;
+SELECT <columns> FROM <table> WHERE <column name> = <value>;
+SELECT * FROM contacts WHERE first_name = "Andrew"; >> Where name is Andrew
+SELECT first_name, email FROM users WHERE last_name = "Chalkley"; >>> where last name is chalkley
+SELECT name AS "Product Name" FROM products WHERE stock_count = 0; >> where stock count is 0
+SELECT title "Book Title" FROM books WHERE year_published = 1999; >> where published year is 1999
+
+Inequality Operator
+Find all rows that a given value doesn't match a column's value.
+
+SELECT <columns> FROM <table> WHERE <column name> != <value>; >>> Not Equal
+SELECT <columns> FROM <table> WHERE <column name> <> <value>; >>> Not Equal
+The not equal to or inequality operator can be written in two ways != and <>. The latter is less common.
+
+Examples:
+
+SELECT * FROM contacts WHERE first_name != "Kenneth"; >> Where name is not Kenneth
+SELECT first_name, email FROM users WHERE last_name != "L:one"; where 
+SELECT name AS "Product Name" FROM products WHERE stock_count != 0; >> Not equal 0
+SELECT title "Book Title" FROM books WHERE year_published != 2015; >> Not 2015
+
+/////////////////
+
+Relational Operators
+There are several relational operators you can use:
+
+< less than
+<= less than or equal to
+> greater than
+>= greater than or equal to
+These are primarily used to compare numeric and date/time types.
+
+
+SELECT <columns> FROM <table> WHERE <column name> < <value>; 
+SELECT <columns> FROM <table> WHERE <column name> <= <value>;
+SELECT <columns> FROM <table> WHERE <column name> > <value>;
+SELECT <columns> FROM <table> WHERE <column name> >= <value>;
+Examples:
+
+SELECT first_name, last_name FROM users WHERE date_of_birth < '1998-12-01'; >>> less than or before 1998
+SELECT title AS "Book Title", author AS Author FROM books WHERE year_released <= 2015; <<< less than or equal 2015
+SELECT name, description FROM products WHERE price > 9.99; >>> greater than 9.99
+SELECT title FROM movies WHERE release_year >= 2000; >>>> greater than or equal 2000
+
+/////////////////
+You can compare multiple values in a WHERE condition. If you want to test that both conditions are true use the AND keyword, or either conditions are true use the OR keyword.
+
+SELECT <columns> FROM <table> WHERE <condition 1> AND <condition 2> ...;
+SELECT <columns> FROM <table> WHERE <condition 1> OR <condition 2> ...;
+Examples:
+
+SELECT username FROM users WHERE last_name = "Chalkley" AND first_name = "Andrew";
+
+SELECT * FROM products WHERE category = "Games Consoles" AND price < 400;
+
+SELECT * FROM movies WHERE title = "The Matrix" OR title = "The Matrix Reloaded" OR title = "The Matrix Revolutions";
+
+SELECT country FROM countries WHERE population < 1000000 OR population > 100000000;
+
+
+////////////////////
+Relational Operators
+There are several relational operators you can use:
+
+< less than
+<= less than or equal to
+> greater than
+>= greater than or equal to
+These are primarily used to compare numeric and date/time types.
+
+SELECT <columns> FROM <table> WHERE <column name> < <value>;
+SELECT <columns> FROM <table> WHERE <column name> <= <value>;
+SELECT <columns> FROM <table> WHERE <column name> > <value>;
+SELECT <columns> FROM <table> WHERE <column name> >= <value>;
+Examples:
+
+SELECT first_name, last_name FROM users WHERE date_of_birth < '1998-12-01';
+SELECT title AS "Book Title", author AS Author FROM books WHERE year_released <= 2015;
+SELECT name, description FROM products WHERE price > 9.99;
+SELECT title FROM movies WHERE release_year >= 2000;
+
+///////////////////
+Searching with a Set of values
+
+SELECT <columns> FROM <table> WHERE <column> IN (<value 1>, <value 2>, ...);
+Examples:
+
+SELECT name FROM islands WHERE id IN (4, 8, 15, 16, 23, 42);
+SELECT * FROM products WHERE category IN ("eBooks", "Books", "Comics");
+SELECT title FROM courses WHERE topic IN ("JavaScript", "Databases", "CSS");
+SELECT * FROM campaigns WHERE medium IN ("email", "blog", "ppc");
+To find all rows that are not in the set of values you can use NOT IN.
+
+SELECT <columns> FROM <table> WHERE <column>  NOT IN (<value 1>, <value 2>, ...);
+Examples:
+
+SELECT answer FROM answers WHERE id IN (7, 42);
+SELECT * FROM products WHERE category NOT IN ("Electronics");
+SELECT title FROM courses WHERE topic NOT IN ("SQL", "NoSQL");
+
+
+///////////////
+Searching within a range
+
+SELECT <columns> FROM <table> WHERE <column> BETWEEN <lesser value> AND <greater value>;
+Examples:
+
+SELECT * FROM movies WHERE release_year BETWEEN 2000 AND 2010;
+SELECT name, description FROM products WHERE price BETWEEN 9.99 AND 19.99;
+SELECT name, appointment_date FROM appointments WHERE appointment_date BETWEEN "2015-01-01" AND "2015-01-07";
+
+
+//////////////
+Search Like: 
+
+Placing the percent symbol (%) any where in a string in conjunction with the LIKE keyword will operate as a wildcard. Meaning it can be substituted by any number of characters, including zero!
+
+SELECT <columns> FROM <table> WHERE <column> LIKE <pattern>;
+Examples:
+
+SELECT title FROM books WHERE title LIKE "Harry Potter%Fire";
+SELECT title FROM movies WHERE title LIKE "Alien%";
+SELECT * FROM contacts WHERE first_name LIKE "%drew";
+SELECT * FROM books WHERE title LIKE "%Brief History%";
+
+PostgreSQL Specific Keywords
+LIKE in PostgreSQL is case-sensitive. To case-insensitive searches do ILIKE.
+
+SELECT * FROM contacts WHERE first_name ILIKE "%drew";
+
+////////////////
+Missing Value: IS NULL and IS NOT NULL
+SELECT * FROM loans WHERE return_by > "2015-12-18" AND returned_on IS NULL;

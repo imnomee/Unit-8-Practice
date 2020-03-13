@@ -1,0 +1,13 @@
+Sequelize is an ORM library for:
+
+SQLite
+MySQL
+MariaDB
+PostgreSQL
+Microsoft SQL Server
+
+ORM:
+Object relational mapper is a tool that lets you interact with database using language of your chhoice
+
+
+https://sequelize.org/master/manual/querying.html#operators
